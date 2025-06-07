@@ -1,3 +1,4 @@
+
 # Online Retail Sales Analysis using Hadoop MapReduce
 
 ## Project Overview
@@ -6,7 +7,6 @@ This project performs large-scale data analysis on the [UCI Online Retail Datase
 ### Description
 This project demonstrates how Hadoop MapReduce can be used to efficiently process and analyze real-world transaction data. By implementing custom Mapper and Reducer classes, the program extracts insights such as total sales and transaction counts across countries. It highlights the power of distributed computing in analyzing large-scale retail datasets.
 
-## Project Structure
 ```
 SalesAnalysis/
 ├── CountryRevenueWritable.java
@@ -22,48 +22,71 @@ SalesAnalysis/
 - **Format:** CSV
 
 ## Prerequisites
-- Java 8 or above
-- Apache Hadoop (version 2.7+)
-- Maven (for building the JAR)
+- Java 8
+- Apache Hadoop 3.4.x
+- Maven
+- WSL or Linux shell environment
 
 ## Compilation Instructions
-1. Create a new Maven project or compile manually using `javac`.
-2. If using Maven, include the Hadoop dependencies in your `pom.xml`.
-3. Compile and package into a JAR file:
+1. Ensure Java 8 is installed:
+   ```bash
+   sudo apt install openjdk-8-jdk
+   java -version
+   ```
 
-```bash
-mvn clean package
-```
+2. Build the JAR file using Maven:
+   ```bash
+   mvn clean package
+   ```
 
-4. The resulting JAR will be located in `target/retailanalysis-1.0-SNAPSHOT.jar`
+3. The JAR file will be located at:
+   ```
+   target/retailanalysis-1.0-SNAPSHOT.jar
+   ```
 
 ## Running the Job
-1. Upload the dataset to HDFS:
+
+### Step 1: Create HDFS directories
 ```bash
-hdfs dfs -mkdir /user/retail/input
-hdfs dfs -put OnlineRetail.csv /user/retail/input
+hdfs dfs -mkdir -p /user/yourusername/input
+hdfs dfs -mkdir -p /user/yourusername/output
 ```
 
-2. Run the MapReduce job:
+### Step 2: Upload dataset to HDFS
 ```bash
-hadoop jar retailanalysis-1.0-SNAPSHOT.jar SalesAnalysisDriver /user/retail/input /user/retail/output
+hdfs dfs -put data/OnlineRetail.csv /user/yourusername/input
 ```
 
-3. View the output:
+### Step 3: Execute the MapReduce job
 ```bash
-hdfs dfs -cat /user/retail/output/part-r-00000
+hadoop jar target/retailanalysis-1.0-SNAPSHOT.jar com.retailanalysis.SalesAnalysisDriver /user/yourusername/input /user/yourusername/output
+```
+
+### Step 4: View the output
+```bash
+hdfs dfs -cat /user/yourusername/output/part-r-00000
 ```
 
 ## Output Format
-Each line contains:
+Each output line contains:
 ```
-<Country>\t<Total Revenue>\t<Transaction Count>\t<Average Revenue per Transaction>
+<Country>	<Total Revenue>	<Transaction Count>	<Average Revenue per Transaction>
 ```
+
 Example:
 ```
 United Kingdom	902522.08	485123	18.60
+Netherlands	285446.34	2359	121.00
 Singapore	21279.29	222	95.85
 ```
+
+## Notes
+- Ensure all Hadoop daemons are running before executing the job:
+  ```bash
+  ./sbin/start-all.sh
+  jps  # to verify NameNode, DataNode, ResourceManager, etc.
+  ```
+- Output is stored in HDFS under `/user/yourusername/output`.
 
 ## Author
 - Team [Insert Group Name]
