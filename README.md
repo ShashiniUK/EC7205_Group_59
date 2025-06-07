@@ -7,13 +7,7 @@ This project performs large-scale data analysis on the [UCI Online Retail Datase
 ### Description
 This project demonstrates how Hadoop MapReduce can be used to efficiently process and analyze real-world transaction data. By implementing custom Mapper and Reducer classes, the program extracts insights such as total sales and transaction counts across countries. It highlights the power of distributed computing in analyzing large-scale retail datasets.
 
-```
-SalesAnalysis/
-├── CountryRevenueWritable.java
-├── SalesMapper.java
-├── SalesReducer.java
-├── SalesAnalysisDriver.java
-```
+
 
 ## Dataset
 - **Name:** Online Retail Dataset
@@ -89,7 +83,10 @@ Singapore	21279.29	222	95.85
 - Output is stored in HDFS under `/user/yourusername/output`.
 
 ## Author
-- Team [Insert Group Name]
+- Team Group 59
+      EG/2020/3945	Gunarathna K.M.W.G.S.L
+      EG/2020/4030	Kumanayake H.P.
+      EG/2020/4247	Udayanthika K.D.S.
 
-## License
-Apache 2.0
+
+
